@@ -15,5 +15,5 @@ public class AllelePair {
 
 	public String getSecondAllele() {
 		return secondAllele;
-	}
+	} 
 }
