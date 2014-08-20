@@ -11,7 +11,7 @@ import blog.genetics.OutcomeCalculator;
 public class BreedingTest {
 
 	@Test
-	public void GetTheOutcomeFromCrossingOneLocusWildTypeParents() {
+	public void GetTheOutcomeFromCrossingOneLocusHomozygousParents() {
 		AllelePairProbability result = OutcomeCalculator.Calculate(
 				new AllelePair("A", "A"), new AllelePair("A", "A"));
 
