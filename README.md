@@ -1,7 +1,7 @@
 genetics
 ========
 
-I want to write here a Library to calculate the results of a mating. 
+I want to write a Library to calculate the results of a mating. 
 Why? Well, because I want to practice TDD and I'm interested in genetics. That way I can combine two 
 things I like. 
 
