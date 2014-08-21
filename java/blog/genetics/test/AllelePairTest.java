@@ -2,22 +2,26 @@ package blog.genetics.test;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import blog.genetics.AllelePair;
 
 public class AllelePairTest {
-	
-	@Test
-	public void gettingTheFirstAllele_ReturnsTheCorrectValue() {
-		AllelePair pair = new AllelePair("A", "b");
-		assertEquals("A", pair.getFirstAllele());
-	}
+    private AllelePair pair;
 
-	@Test
-	public void gettingTheSecondAllele_ReturnsTheCorrectValue() {
-		AllelePair pair = new AllelePair("A", "b");
-		assertEquals("b", pair.getSecondAllele());
-	}
+    @Before
+    public void InitializeTest() {
+        pair = new AllelePair("A", "b");
+    }
 
+    @Test
+    public void gettingTheFirstAllele_ReturnsTheCorrectValue() {
+        assertEquals("A", pair.getFirstAllele());
+    }
+
+    @Test
+    public void gettingTheSecondAllele_ReturnsTheCorrectValue() {
+        assertEquals("b", pair.getSecondAllele());
+    }
 }

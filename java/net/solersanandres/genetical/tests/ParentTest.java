@@ -12,18 +12,15 @@ import net.solersanandres.genetical.IOccurrence;
 import net.solersanandres.genetical.Occurrence;
 import net.solersanandres.genetical.Parent;
 
-import org.jmock.Mockery;
 import org.junit.Before;
 import org.junit.Test;
 
 public class ParentTest {
 
-	private Mockery context;
 	private DefaultCombinedOccurrenceFactory factory;
 
 	@Before
 	public void setUp() {
-		context = new Mockery();
 		factory = new DefaultCombinedOccurrenceFactory();
 	}
 	
