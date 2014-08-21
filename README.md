@@ -7,5 +7,5 @@ things I like.
 
 I also want to record the progress in my [blog](http://olorin71.github.io)
 
-My goal is a clean and clear implementation to achieve. 
+My goal is to achieve a clean and clear implementation. 
 And then to be able to use this Library in other Projects.
