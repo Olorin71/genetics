@@ -2,8 +2,14 @@ package blog.genetics;
 
 public interface AllelePair {
 
-	String getFirstAllele();
+    String getFirstAllele();
 
-	String getSecondAllele();
+    String getSecondAllele();
+
+    boolean isDominantHomozygous();
+
+    boolean isRecessiveHomozygous();
+
+    boolean isHeterozygous();
 
 }
