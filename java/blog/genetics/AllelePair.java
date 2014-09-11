@@ -1,15 +1,19 @@
 package blog.genetics;
 
+import java.util.Map;
+
 public interface AllelePair {
 
-    String getFirstAllele();
+	String getFirstAllele();
 
-    String getSecondAllele();
+	String getSecondAllele();
 
-    boolean isDominantHomozygous();
+	boolean isDominantHomozygous();
 
-    boolean isRecessiveHomozygous();
+	boolean isRecessiveHomozygous();
 
-    boolean isHeterozygous();
+	boolean isHeterozygous();
+
+	Map<String, Double> combineWith(AllelePair otherAllele);
 
 }
