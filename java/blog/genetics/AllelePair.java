@@ -4,16 +4,16 @@ import java.util.Map;
 
 public interface AllelePair {
 
-	String getFirstAllele();
+    Map<String, Double> combineWith(AllelePair otherAllele);
 
-	String getSecondAllele();
+    String getFirstAllele();
 
-	boolean isDominantHomozygous();
+    String getSecondAllele();
 
-	boolean isRecessiveHomozygous();
+    boolean isDominantHomozygous();
 
-	boolean isHeterozygous();
+    boolean isHeterozygous();
 
-	Map<String, Double> combineWith(AllelePair otherAllele);
+    boolean isRecessiveHomozygous();
 
 }

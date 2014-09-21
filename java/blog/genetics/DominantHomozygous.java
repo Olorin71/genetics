@@ -3,34 +3,41 @@ package blog.genetics;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DominantHomozygous extends AllelePairImpl implements AllelePair {
+class DominantHomozygous extends AllelePairImpl implements AllelePair {
 
-	public DominantHomozygous(String allele) {
-		super(allele.toUpperCase(), allele.toUpperCase());
+    public DominantHomozygous(final String allele) {
+	super(allele.toUpperCase(), allele.toUpperCase());
+    }
+
+    @Override
+    public Map<String, Double> combineWith(final AllelePair otherAllele) {
+	final Map<String, Double> genotypeProbablilities = new HashMap<String, Double>();
+	if (otherAllele.isRecessiveHomozygous()) {
+	    genotypeProbablilities.put(
+		    getFirstAllele() + otherAllele.getSecondAllele(),
+		    Constants.HUNDREDPERCENT);
+	} else {
+	    if (otherAllele.isHeterozygous()) {
+		genotypeProbablilities.put(
+			getFirstAllele() + getSecondAllele(),
+			Constants.FIFTYPERCENT);
+		genotypeProbablilities.put(
+			getFirstAllele() + otherAllele.getSecondAllele(),
+			Constants.FIFTYPERCENT);
+
+	    } else {
+		genotypeProbablilities.put(
+			getFirstAllele() + getSecondAllele(),
+			Constants.HUNDREDPERCENT);
+	    }
 	}
 
-	@Override
-	public boolean isDominantHomozygous() {
-		return true;
-	}
+	return genotypeProbablilities;
+    }
 
-	@Override
-	public Map<String, Double> combineWith(AllelePair otherAllele) {
-		Map<String, Double> results = new HashMap<String, Double>();
-		if (otherAllele.isRecessiveHomozygous()) {
-			results.put(getFirstAllele() + otherAllele.getSecondAllele(), 1.0);
-		} else {
-			if (otherAllele.isHeterozygous()) {
-				results.put(getFirstAllele() + getSecondAllele(), 0.5);
-				results.put(getFirstAllele() + otherAllele.getSecondAllele(),
-						0.5);
-
-			} else {
-				results.put(getFirstAllele() + getSecondAllele(), 1.0);
-			}
-		}
-
-		return results;
-	}
+    @Override
+    public boolean isDominantHomozygous() {
+	return true;
+    }
 
 }

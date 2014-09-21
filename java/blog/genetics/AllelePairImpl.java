@@ -2,42 +2,43 @@ package blog.genetics;
 
 import java.util.Map;
 
-public abstract class AllelePairImpl implements AllelePair {
+abstract class AllelePairImpl implements AllelePair {
 
-	private String firstAllele;
-	private String secondAllele;
+    private final String firstAllele;
+    private final String secondAllele;
 
-	public AllelePairImpl(String firstAllele, String secondAllele) {
-		this.firstAllele = firstAllele;
-		this.secondAllele = secondAllele;
-	}
+    public AllelePairImpl(final String theFirstAllele,
+	    final String theSecondAllele) {
+	this.firstAllele = theFirstAllele;
+	this.secondAllele = theSecondAllele;
+    }
 
-	@Override
-	public String getFirstAllele() {
-		return firstAllele;
-	}
+    @Override
+    public abstract Map<String, Double> combineWith(AllelePair otherAllele);
 
-	@Override
-	public String getSecondAllele() {
-		return secondAllele;
-	}
+    @Override
+    public final String getFirstAllele() {
+	return firstAllele;
+    }
 
-	@Override
-	public boolean isDominantHomozygous() {
-		return false;
-	}
+    @Override
+    public final String getSecondAllele() {
+	return secondAllele;
+    }
 
-	@Override
-	public boolean isRecessiveHomozygous() {
-		return false;
-	}
+    @Override
+    public boolean isDominantHomozygous() {
+	return false;
+    }
 
-	@Override
-	public boolean isHeterozygous() {
-		return false;
-	}
+    @Override
+    public boolean isHeterozygous() {
+	return false;
+    }
 
-	@Override
-	public abstract Map<String, Double> combineWith(AllelePair otherAllele);
+    @Override
+    public boolean isRecessiveHomozygous() {
+	return false;
+    }
 
 }
