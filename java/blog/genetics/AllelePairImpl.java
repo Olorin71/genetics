@@ -4,27 +4,24 @@ import java.util.Map;
 
 abstract class AllelePairImpl implements AllelePair {
 
-    private final String firstAllele;
-    private final String secondAllele;
+    private final String locus;
 
-    public AllelePairImpl(final String theFirstAllele,
-	    final String theSecondAllele) {
-	this.firstAllele = theFirstAllele;
-	this.secondAllele = theSecondAllele;
+    public AllelePairImpl(final String theLocus) {
+	locus = theLocus.toUpperCase();
     }
 
+    protected String getLocus() {
+	return locus;
+    }
+    
     @Override
     public abstract Map<String, Double> combineWith(AllelePair otherAllele);
 
     @Override
-    public final String getFirstAllele() {
-	return firstAllele;
-    }
+    public abstract String getFirstAllele();
 
     @Override
-    public final String getSecondAllele() {
-	return secondAllele;
-    }
+    public abstract String getSecondAllele();
 
     @Override
     public boolean isDominantHomozygous() {

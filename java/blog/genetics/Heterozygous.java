@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 class Heterozygous extends AllelePairImpl implements AllelePair {
-    public Heterozygous(final String allele) {
-	super(allele.toUpperCase(), allele.toLowerCase());
+    public Heterozygous(final String locus) {
+	super(locus);
     }
 
     @Override
@@ -44,6 +44,16 @@ class Heterozygous extends AllelePairImpl implements AllelePair {
     @Override
     public boolean isHeterozygous() {
 	return true;
+    }
+
+    @Override
+    public String getFirstAllele() {
+	return getLocus();
+    }
+
+    @Override
+    public String getSecondAllele() {
+	return getLocus().toLowerCase();
     }
 
 }

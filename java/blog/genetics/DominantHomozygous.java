@@ -5,8 +5,8 @@ import java.util.Map;
 
 class DominantHomozygous extends AllelePairImpl implements AllelePair {
 
-    public DominantHomozygous(final String allele) {
-	super(allele.toUpperCase(), allele.toUpperCase());
+    public DominantHomozygous(final String locus) {
+	super(locus);
     }
 
     @Override
@@ -40,4 +40,15 @@ class DominantHomozygous extends AllelePairImpl implements AllelePair {
 	return true;
     }
 
+    @Override
+    public String getFirstAllele() {
+	return getLocus();
+    }
+
+    @Override
+    public String getSecondAllele() {
+	return getLocus();
+    }
+
 }
+

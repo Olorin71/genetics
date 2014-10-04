@@ -5,8 +5,8 @@ import java.util.Map;
 
 class RecessiveHomozygous extends AllelePairImpl implements AllelePair {
 
-    public RecessiveHomozygous(final String allele) {
-	super(allele.toLowerCase(), allele.toLowerCase());
+    public RecessiveHomozygous(final String locus) {
+	super(locus);
     }
 
     @Override
@@ -34,6 +34,16 @@ class RecessiveHomozygous extends AllelePairImpl implements AllelePair {
     @Override
     public boolean isRecessiveHomozygous() {
 	return true;
+    }
+
+    @Override
+    public String getFirstAllele() {
+	return getLocus().toLowerCase();
+    }
+
+    @Override
+    public String getSecondAllele() {
+	return getLocus().toLowerCase();
     }
 
 }
