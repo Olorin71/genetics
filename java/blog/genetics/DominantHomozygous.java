@@ -3,52 +3,31 @@ package blog.genetics;
 import java.util.HashMap;
 import java.util.Map;
 
-class DominantHomozygous extends AllelePairImpl implements AllelePair {
+public class DominantHomozygous extends AllelePairImpl implements AllelePair {
 
-    public DominantHomozygous(final String locus) {
-	super(locus);
-    }
-
-    @Override
-    public Map<String, Double> combineWith(final AllelePair otherAllele) {
-	final Map<String, Double> genotypeProbablilities = new HashMap<String, Double>();
-	if (otherAllele.isRecessiveHomozygous()) {
-	    genotypeProbablilities.put(
-		    getFirstAllele() + otherAllele.getSecondAllele(),
-		    Constants.HUNDREDPERCENT);
-	} else {
-	    if (otherAllele.isHeterozygous()) {
-		genotypeProbablilities.put(
-			getFirstAllele() + getSecondAllele(),
-			Constants.FIFTYPERCENT);
-		genotypeProbablilities.put(
-			getFirstAllele() + otherAllele.getSecondAllele(),
-			Constants.FIFTYPERCENT);
-
-	    } else {
-		genotypeProbablilities.put(
-			getFirstAllele() + getSecondAllele(),
-			Constants.HUNDREDPERCENT);
-	    }
+	public DominantHomozygous(final String locus) {
+		super(locus);
 	}
 
-	return genotypeProbablilities;
-    }
+	@Override
+	protected Map<Class<?>, Double> combinationsWithDominantHomozygous() {
+		final Map<Class<?>, Double> probabilities = new HashMap<Class<?>, Double>();
+		probabilities.put(DominantHomozygous.class, Constants.HUNDREDPERCENT);
+		return probabilities;
+	}
 
-    @Override
-    public boolean isDominantHomozygous() {
-	return true;
-    }
+	@Override
+	protected Map<Class<?>, Double> combinationsWithRecessiveHomozygous() {
+		final Map<Class<?>, Double> probabilities = new HashMap<Class<?>, Double>();
+		probabilities.put(Heterozygous.class, Constants.HUNDREDPERCENT);
+		return probabilities;
+	}
 
-    @Override
-    public String getFirstAllele() {
-	return getLocus();
-    }
-
-    @Override
-    public String getSecondAllele() {
-	return getLocus();
-    }
-
+	@Override
+	protected Map<Class<?>, Double> combinationsWithHeterozygous() {
+		final Map<Class<?>, Double> probabilities = new HashMap<Class<?>, Double>();
+		probabilities.put(DominantHomozygous.class, Constants.FIFTYPERCENT);
+		probabilities.put(Heterozygous.class, Constants.FIFTYPERCENT);
+		return probabilities;
+	}
 }
-

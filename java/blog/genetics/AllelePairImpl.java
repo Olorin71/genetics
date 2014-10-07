@@ -4,38 +4,35 @@ import java.util.Map;
 
 abstract class AllelePairImpl implements AllelePair {
 
-    private final String locus;
+	private final String locus;
 
-    public AllelePairImpl(final String theLocus) {
-	locus = theLocus.toUpperCase();
-    }
+	public AllelePairImpl(final String theLocus) {
+		locus = theLocus.toUpperCase();
+	}
 
-    protected String getLocus() {
-	return locus;
-    }
-    
-    @Override
-    public abstract Map<String, Double> combineWith(AllelePair otherAllele);
+	protected String getLocus() {
+		return locus;
+	}
 
-    @Override
-    public abstract String getFirstAllele();
+	@Override
+	public final Map<Class<?>, Double> combineWith(final AllelePair otherAllele) {
+		if (otherAllele instanceof RecessiveHomozygous) {
+			return combinationsWithRecessiveHomozygous();
+		}
+		if (otherAllele instanceof Heterozygous) {
+			return combinationsWithHeterozygous();
+		}
+		if (otherAllele instanceof DominantHomozygous) {
+			return combinationsWithDominantHomozygous();
+		}
 
-    @Override
-    public abstract String getSecondAllele();
+		return null;
+	}
 
-    @Override
-    public boolean isDominantHomozygous() {
-	return false;
-    }
+	protected abstract Map<Class<?>, Double> combinationsWithRecessiveHomozygous();
 
-    @Override
-    public boolean isHeterozygous() {
-	return false;
-    }
+	protected abstract Map<Class<?>, Double> combinationsWithHeterozygous();
 
-    @Override
-    public boolean isRecessiveHomozygous() {
-	return false;
-    }
+	protected abstract Map<Class<?>, Double> combinationsWithDominantHomozygous();
 
 }

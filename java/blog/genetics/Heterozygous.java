@@ -3,57 +3,35 @@ package blog.genetics;
 import java.util.HashMap;
 import java.util.Map;
 
-class Heterozygous extends AllelePairImpl implements AllelePair {
-    public Heterozygous(final String locus) {
-	super(locus);
-    }
-
-    @Override
-    public Map<String, Double> combineWith(final AllelePair otherAllele) {
-	final Map<String, Double> genotypeProbablilities = new HashMap<String, Double>();
-	if (otherAllele.isDominantHomozygous()) {
-	    genotypeProbablilities.put(getFirstAllele() + getSecondAllele(),
-		    Constants.FIFTYPERCENT);
-	    genotypeProbablilities.put(
-		    getFirstAllele() + otherAllele.getSecondAllele(),
-		    Constants.FIFTYPERCENT);
-	} else {
-	    if (otherAllele.isRecessiveHomozygous()) {
-		genotypeProbablilities.put(
-			getFirstAllele() + getSecondAllele(),
-			Constants.FIFTYPERCENT);
-		genotypeProbablilities
-			.put(otherAllele.getFirstAllele()
-				+ otherAllele.getSecondAllele(),
-				Constants.FIFTYPERCENT);
-	    } else {
-		genotypeProbablilities.put(
-			getFirstAllele() + getSecondAllele(),
-			Constants.FIFTYPERCENT);
-		genotypeProbablilities.put(getFirstAllele()
-			+ getSecondAllele().toUpperCase(),
-			Constants.TWENTYFIVEPERCENT);
-		genotypeProbablilities.put(getFirstAllele().toLowerCase()
-			+ getSecondAllele(), Constants.TWENTYFIVEPERCENT);
-	    }
+public class Heterozygous extends AllelePairImpl implements AllelePair {
+	public Heterozygous(final String locus) {
+		super(locus);
 	}
-	return genotypeProbablilities;
 
-    }
+	@Override
+	protected Map<Class<?>, Double> combinationsWithDominantHomozygous() {
+		final Map<Class<?>, Double> probabilities = new HashMap<Class<?>, Double>();
+		probabilities.put(Heterozygous.class, Constants.FIFTYPERCENT);
+		probabilities.put(DominantHomozygous.class, Constants.FIFTYPERCENT);
+		return probabilities;
+	}
 
-    @Override
-    public boolean isHeterozygous() {
-	return true;
-    }
+	@Override
+	protected Map<Class<?>, Double> combinationsWithRecessiveHomozygous() {
+		final Map<Class<?>, Double> probabilities = new HashMap<Class<?>, Double>();
+		probabilities.put(Heterozygous.class, Constants.FIFTYPERCENT);
+		probabilities.put(RecessiveHomozygous.class, Constants.FIFTYPERCENT);
+		return probabilities;
+	}
 
-    @Override
-    public String getFirstAllele() {
-	return getLocus();
-    }
-
-    @Override
-    public String getSecondAllele() {
-	return getLocus().toLowerCase();
-    }
-
+	@Override
+	protected Map<Class<?>, Double> combinationsWithHeterozygous() {
+		final Map<Class<?>, Double> probabilities = new HashMap<Class<?>, Double>();
+		probabilities.put(Heterozygous.class, Constants.FIFTYPERCENT);
+		probabilities
+				.put(DominantHomozygous.class, Constants.TWENTYFIVEPERCENT);
+		probabilities.put(RecessiveHomozygous.class,
+				Constants.TWENTYFIVEPERCENT);
+		return probabilities;
+	}
 }
