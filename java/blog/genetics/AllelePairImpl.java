@@ -10,10 +10,6 @@ abstract class AllelePairImpl implements AllelePair {
 		locus = theLocus.toUpperCase();
 	}
 
-	protected String getLocus() {
-		return locus;
-	}
-
 	@Override
 	public final Map<Class<?>, Double> combineWith(final AllelePair otherAllele) {
 		if (otherAllele instanceof RecessiveHomozygous) {
@@ -29,10 +25,14 @@ abstract class AllelePairImpl implements AllelePair {
 		return null;
 	}
 
-	protected abstract Map<Class<?>, Double> combinationsWithRecessiveHomozygous();
+	protected abstract Map<Class<?>, Double> combinationsWithDominantHomozygous();
 
 	protected abstract Map<Class<?>, Double> combinationsWithHeterozygous();
 
-	protected abstract Map<Class<?>, Double> combinationsWithDominantHomozygous();
+	protected abstract Map<Class<?>, Double> combinationsWithRecessiveHomozygous();
+
+	protected String getLocus() {
+		return locus;
+	}
 
 }

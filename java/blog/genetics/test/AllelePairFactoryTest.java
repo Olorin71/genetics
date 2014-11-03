@@ -7,23 +7,18 @@ import blog.genetics.AllelePairFactory;
 public final class AllelePairFactoryTest {
 
 	@Test(expected = IllegalArgumentException.class)
-	public void createDominantHomozygousWithNullThrowsArgumentNullException() {
-		AllelePairFactory.createDominantHomozygous(null);
-	}
-
-	@Test(expected = IllegalArgumentException.class)
 	public void createDominantHomozygousWithEmptyStringThrowsArgumentNullException() {
 		AllelePairFactory.createDominantHomozygous("");
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void createRecessiveHomozygousWithNullThrowsArgumentNullException() {
-		AllelePairFactory.createRecessiveHomozygous(null);
+	public void createDominantHomozygousWithNullThrowsArgumentNullException() {
+		AllelePairFactory.createDominantHomozygous(null);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void createRecessiveHomozygousWithEmptyStringThrowsArgumentNullException() {
-		AllelePairFactory.createRecessiveHomozygous("");
+	public void createHeterozygousWithEmptyStringThrowsArgumentNullException() {
+		AllelePairFactory.createDominantHomozygous("");
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -32,7 +27,12 @@ public final class AllelePairFactoryTest {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void createHeterozygousWithEmptyStringThrowsArgumentNullException() {
-		AllelePairFactory.createDominantHomozygous("");
+	public void createRecessiveHomozygousWithEmptyStringThrowsArgumentNullException() {
+		AllelePairFactory.createRecessiveHomozygous("");
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void createRecessiveHomozygousWithNullThrowsArgumentNullException() {
+		AllelePairFactory.createRecessiveHomozygous(null);
 	}
 }
