@@ -4,13 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.solersanandres.genetics.models.occurrence.Occurrence;
 
-import java.util.List;
-
 @Getter
 @AllArgsConstructor
-public class Locus {
-    private final String name;
-    private final String symbol;
-    private final List<Allele> alleles;
+public class LocusOccurrence {
+    private final Locus locus;
+    private final Allele allele;
+    private final Occurrence occurrence;
 }
-

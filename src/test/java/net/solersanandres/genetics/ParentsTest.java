@@ -1,25 +1,27 @@
 package net.solersanandres.genetics;
 
-import net.solersanandres.genetics.models.occurrence.AlleleOccurrence;
+import net.solersanandres.genetics.models.LocusOccurrence;
+import net.solersanandres.genetics.models.Parent;
 import net.solersanandres.genetics.models.occurrence.AllelePairOccurrence;
 import net.solersanandres.genetics.models.occurrence.Occurrence;
 import net.solersanandres.genetics.models.occurrence.OccurrencePairFactory;
-import net.solersanandres.genetics.models.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static net.solersanandres.genetics.Data.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
 public class ParentsTest {
+
     @Test
     void TwoParentWithOneAndTheSameAlleleOccurrence_BalancedContainsOnlyTheOneAlleleOccurrence() {
         Parent p1 = new Parent();
-        AlleleOccurrence occurrence = new AlleleOccurrence(new Allele("Anery", "A", "Schwarz"), Occurrence.DOMINANT_HOMOZYGOUS);
-        p1.addAlleleOccurrence(occurrence);
+        LocusOccurrence locusOccurrence = new LocusOccurrence(locusA, alleleA1, Occurrence.DOMINANT_HOMOZYGOUS);
+        p1.addAlleleOccurrence(locusOccurrence);
         Parent p2 = new Parent();
-        p2.addAlleleOccurrence(occurrence);
+        p2.addAlleleOccurrence(locusOccurrence);
 
         List<AllelePairOccurrence> alleleOccurrences = p1.balanceWith(p2);
         assertThat(alleleOccurrences).isNotNull();
@@ -30,14 +32,14 @@ public class ParentsTest {
 
     @Test
     void TwoParentWithTwoAndTheSameAlleleOccurrence_BalancedContainsOnlyTheTwoAlleleOccurrence() {
-        AlleleOccurrence alleleOccurrenceOne = new AlleleOccurrence(new Allele("Anery", "A", "Schwarz"), Occurrence.RECESSIVE_HOMOZYGOUS);
-        AlleleOccurrence alleleOccurrenceTwo = new AlleleOccurrence(new Allele("Blue", "B", "Blau"), Occurrence.HETEROZYGOUS);
+        LocusOccurrence locusOccurrence1 = new LocusOccurrence(locusA, alleleA1, Occurrence.RECESSIVE_HOMOZYGOUS);
+        LocusOccurrence locusOccurrence2 = new LocusOccurrence(locusZ, alleleZ1, Occurrence.HETEROZYGOUS);
         Parent p1 = new Parent();
-        p1.addAlleleOccurrence(alleleOccurrenceOne);
-        p1.addAlleleOccurrence(alleleOccurrenceTwo);
+        p1.addAlleleOccurrence(locusOccurrence1);
+        p1.addAlleleOccurrence(locusOccurrence2);
         Parent p2 = new Parent();
-        p2.addAlleleOccurrence(alleleOccurrenceOne);
-        p2.addAlleleOccurrence(alleleOccurrenceTwo);
+        p2.addAlleleOccurrence(locusOccurrence1);
+        p2.addAlleleOccurrence(locusOccurrence2);
 
         List<AllelePairOccurrence> alleleOccurrences = p1.balanceWith(p2);
         assertThat(alleleOccurrences).isNotNull();
@@ -52,12 +54,12 @@ public class ParentsTest {
 
     @Test
     void TwoParentWithOneAlleleOccurrenceForDifferentLocus_BalancedContainsOccurrencesForBothLocus() {
-        AlleleOccurrence alleleOccurrenceOne = new AlleleOccurrence(new Allele("Anery", "A", "Schwarz"), Occurrence.RECESSIVE_HOMOZYGOUS);
-        AlleleOccurrence alleleOccurrenceTwo = new AlleleOccurrence(new Allele("Blue", "B", "Blau"), Occurrence.HETEROZYGOUS);
+        LocusOccurrence locusOccurrence1 = new LocusOccurrence(locusA, alleleA1, Occurrence.RECESSIVE_HOMOZYGOUS);
+        LocusOccurrence locusOccurrence2 = new LocusOccurrence(locusZ, alleleZ1, Occurrence.HETEROZYGOUS);
         Parent p1 = new Parent();
-        p1.addAlleleOccurrence(alleleOccurrenceOne);
+        p1.addAlleleOccurrence(locusOccurrence1);
         Parent p2 = new Parent();
-        p2.addAlleleOccurrence(alleleOccurrenceTwo);
+        p2.addAlleleOccurrence(locusOccurrence2);
 
         List<AllelePairOccurrence> alleleOccurrences = p1.balanceWith(p2);
         assertThat(alleleOccurrences).isNotNull();
@@ -72,11 +74,11 @@ public class ParentsTest {
 
     @Test
     void OneParentWithTwoOccurrences_TheOtherOneNoOccurrences_BalancedContainsTheTwoOccurrence() {
-        AlleleOccurrence alleleOccurrenceOne = new AlleleOccurrence(new Allele("Anery", "A", "Schwarz"), Occurrence.RECESSIVE_HOMOZYGOUS);
-        AlleleOccurrence alleleOccurrenceTwo = new AlleleOccurrence(new Allele("Blue", "B", "Blau"), Occurrence.HETEROZYGOUS);
+        LocusOccurrence locusOccurrence1 = new LocusOccurrence(locusA, alleleA1, Occurrence.RECESSIVE_HOMOZYGOUS);
+        LocusOccurrence locusOccurrence2 = new LocusOccurrence(locusZ, alleleZ1, Occurrence.HETEROZYGOUS);
         Parent p1 = new Parent();
-        p1.addAlleleOccurrence(alleleOccurrenceOne);
-        p1.addAlleleOccurrence(alleleOccurrenceTwo);
+        p1.addAlleleOccurrence(locusOccurrence1);
+        p1.addAlleleOccurrence(locusOccurrence2);
         Parent p2 = new Parent();
 
         List<AllelePairOccurrence> alleleOccurrences = p1.balanceWith(p2);

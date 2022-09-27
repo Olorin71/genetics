@@ -1,33 +1,35 @@
 package net.solersanandres.genetics.models;
 
-
-import net.solersanandres.genetics.models.occurrence.*;
+import net.solersanandres.genetics.models.occurrence.AllelePair;
+import net.solersanandres.genetics.models.occurrence.AllelePairOccurrence;
+import net.solersanandres.genetics.models.occurrence.Occurrence;
+import net.solersanandres.genetics.models.occurrence.OccurrencePairFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Parent {
-    private final List<AlleleOccurrence> alleleOccurrences;
+    private final List<LocusOccurrence> locusOccurrences;
 
     public Parent() {
-        this.alleleOccurrences = new ArrayList<>();
+        this.locusOccurrences = new ArrayList<>();
     }
 
-    public void addAlleleOccurrence(AlleleOccurrence occurrence) {
-        this.alleleOccurrences.add(occurrence);
+    public void addAlleleOccurrence(LocusOccurrence occurrence) {
+        this.locusOccurrences.add(occurrence);
     }
 
     public ArrayList<AllelePairOccurrence> balanceWith(Parent otherParent) {
         ArrayList<AllelePairOccurrence> balancedOccurrences = new ArrayList<>();
-        this.alleleOccurrences.forEach(x -> {
-            AlleleOccurrence p2Occurrence = otherParent.getOccurrenceForLocusName(x.getAllele().getLocusName());
+        this.locusOccurrences.forEach(x -> {
+            LocusOccurrence p2Occurrence = otherParent.getOccurrenceForLocusName(x.getLocus());
             AllelePairOccurrence allelePairOccurrence = new AllelePairOccurrence(
                     new AllelePair(x.getAllele(), p2Occurrence.getAllele()),
                     OccurrencePairFactory.create(x.getOccurrence(), p2Occurrence.getOccurrence()));
             balancedOccurrences.add(allelePairOccurrence);
         });
-        otherParent.alleleOccurrences.forEach(x -> {
-            String locusName = x.getAllele().getLocusName();
+        otherParent.locusOccurrences.forEach(x -> {
+            String locusName = x.getLocus().getName();
             boolean locusAlreadyAdded = balancedOccurrences.stream().anyMatch(item -> item.getAllelePair()
                     .getFirstAllele().getLocusName().equals(locusName));
             if (!locusAlreadyAdded) {
@@ -40,9 +42,11 @@ public class Parent {
         return balancedOccurrences;
     }
 
-    private AlleleOccurrence getOccurrenceForLocusName(String locusName) {
-        return this.alleleOccurrences.stream().filter(x -> x.getAllele().getLocusName().equals(locusName)).findFirst()
+    private LocusOccurrence getOccurrenceForLocusName(Locus locus) {
+        return this.locusOccurrences.stream().filter(x -> x.getAllele().getLocusName()
+                        .equals(locus.getName())).findFirst()
                 .orElseGet(() ->
-                        new AlleleOccurrence(new Allele("wild", "", locusName), Occurrence.DOMINANT_HOMOZYGOUS));
+                        new LocusOccurrence(locus, new Allele("wild", "", locus.getName()),
+                                Occurrence.DOMINANT_HOMOZYGOUS));
     }
 }
