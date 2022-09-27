@@ -2,9 +2,8 @@ package net.solersanandres.genetics.models;
 
 import net.solersanandres.genetics.mating.MateCalculator;
 import net.solersanandres.genetics.mating.MateResults;
-import net.solersanandres.genetics.models.occurrence.AlleleOccurrencePair;
+import net.solersanandres.genetics.models.occurrence.AllelePairOccurrence;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Mating {
@@ -16,7 +15,12 @@ public class Mating {
     }
 
     public void calculate(Parent firstParent, Parent secondParent) {
-        ArrayList<AlleleOccurrencePair> balancedOccurrences = firstParent.balanceWith(secondParent);
-        List<MateResults> mateResults = calculator.forLoci(balancedOccurrences);
+        List<AllelePairOccurrence> balancedOccurrences = firstParent.balanceWith(secondParent);
+        List<MateResults> locusMateResults = calculator.forLoci(balancedOccurrences);
+        combineMateResults(locusMateResults);
+    }
+
+    private void combineMateResults(List<MateResults> locusMateResults) {
+
     }
 }

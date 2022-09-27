@@ -5,10 +5,10 @@ import net.solersanandres.genetics.models.occurrence.Occurrence;
 import java.util.Map;
 import java.util.Optional;
 
-class CommonMateResults implements MateResults {
+class CommonLocusMateResults implements LocusMateResults {
     private final Map<Occurrence, Double> mateResultsMap;
 
-    public CommonMateResults(Map<Occurrence, Double> mateResults) {
+    public CommonLocusMateResults(Map<Occurrence, Double> mateResults) {
         this.mateResultsMap = mateResults;
     }
 

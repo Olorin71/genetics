@@ -1,10 +1,7 @@
 package net.solersanandres.genetics.models;
 
 
-import net.solersanandres.genetics.models.occurrence.AlleleOccurrence;
-import net.solersanandres.genetics.models.occurrence.AlleleOccurrencePair;
-import net.solersanandres.genetics.models.occurrence.Occurrence;
-import net.solersanandres.genetics.models.occurrence.OccurrencePairFactory;
+import net.solersanandres.genetics.models.occurrence.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,23 +17,24 @@ public class Parent {
         this.alleleOccurrences.add(occurrence);
     }
 
-    public ArrayList<AlleleOccurrencePair> balanceWith(Parent otherParent) {
-        ArrayList<AlleleOccurrencePair> balancedOccurrences = new ArrayList<>();
+    public ArrayList<AllelePairOccurrence> balanceWith(Parent otherParent) {
+        ArrayList<AllelePairOccurrence> balancedOccurrences = new ArrayList<>();
         this.alleleOccurrences.forEach(x -> {
             AlleleOccurrence p2Occurrence = otherParent.getOccurrenceForLocusName(x.getAllele().getLocusName());
-            AlleleOccurrencePair alleleOccurrencePair = new AlleleOccurrencePair(
-                    x.getAllele().getLocusName(), x.getAllele().getName(),
+            AllelePairOccurrence allelePairOccurrence = new AllelePairOccurrence(
+                    new AllelePair(x.getAllele(), p2Occurrence.getAllele()),
                     OccurrencePairFactory.create(x.getOccurrence(), p2Occurrence.getOccurrence()));
-            balancedOccurrences.add(alleleOccurrencePair);
+            balancedOccurrences.add(allelePairOccurrence);
         });
         otherParent.alleleOccurrences.forEach(x -> {
-            String currentLocusId = x.getAllele().getLocusName();
-            boolean locusAlreadyAdded = balancedOccurrences.stream().anyMatch(item -> item.getLocusName().equals(currentLocusId));
+            String locusName = x.getAllele().getLocusName();
+            boolean locusAlreadyAdded = balancedOccurrences.stream().anyMatch(item -> item.getAllelePair()
+                    .getFirstAllele().getLocusName().equals(locusName));
             if (!locusAlreadyAdded) {
-                AlleleOccurrencePair alleleOccurrencePair = new AlleleOccurrencePair(
-                        x.getAllele().getLocusName(), x.getAllele().getName(),
+                AllelePairOccurrence allelePairOccurrence = new AllelePairOccurrence(
+                        new AllelePair(x.getAllele(), new Allele("wild", "", x.getAllele().getLocusName())),
                         OccurrencePairFactory.create(Occurrence.DOMINANT_HOMOZYGOUS, x.getOccurrence()));
-                balancedOccurrences.add(alleleOccurrencePair);
+                balancedOccurrences.add(allelePairOccurrence);
             }
         });
         return balancedOccurrences;

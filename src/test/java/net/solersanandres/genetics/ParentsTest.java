@@ -1,7 +1,7 @@
 package net.solersanandres.genetics;
 
 import net.solersanandres.genetics.models.occurrence.AlleleOccurrence;
-import net.solersanandres.genetics.models.occurrence.AlleleOccurrencePair;
+import net.solersanandres.genetics.models.occurrence.AllelePairOccurrence;
 import net.solersanandres.genetics.models.occurrence.Occurrence;
 import net.solersanandres.genetics.models.occurrence.OccurrencePairFactory;
 import net.solersanandres.genetics.models.*;
@@ -21,13 +21,11 @@ public class ParentsTest {
         Parent p2 = new Parent();
         p2.addAlleleOccurrence(occurrence);
 
-        List<AlleleOccurrencePair> alleleOccurrences = p1.balanceWith(p2);
+        List<AllelePairOccurrence> alleleOccurrences = p1.balanceWith(p2);
         assertThat(alleleOccurrences).isNotNull();
         assertThat(alleleOccurrences.size()).isEqualTo(1);
         assertThat(alleleOccurrences.get(0).getOccurrencePair())
                 .isEqualTo(OccurrencePairFactory.TwoDominantHomozygous());
-        assertThat(alleleOccurrences.get(0).getLocusName()).isEqualTo("Schwarz");
-        assertThat(alleleOccurrences.get(0).getAlleleName()).isEqualTo("Anery");
     }
 
     @Test
@@ -41,19 +39,15 @@ public class ParentsTest {
         p2.addAlleleOccurrence(alleleOccurrenceOne);
         p2.addAlleleOccurrence(alleleOccurrenceTwo);
 
-        List<AlleleOccurrencePair> alleleOccurrences = p1.balanceWith(p2);
+        List<AllelePairOccurrence> alleleOccurrences = p1.balanceWith(p2);
         assertThat(alleleOccurrences).isNotNull();
         assertThat(alleleOccurrences.size()).isEqualTo(2);
 
         assertThat(alleleOccurrences.get(0).getOccurrencePair())
                 .isEqualTo(OccurrencePairFactory.TwoRecessiveHomozygous());
-        assertThat(alleleOccurrences.get(0).getLocusName()).isEqualTo("Schwarz");
-        assertThat(alleleOccurrences.get(0).getAlleleName()).isEqualTo("Anery");
 
         assertThat(alleleOccurrences.get(1).getOccurrencePair())
                 .isEqualTo(OccurrencePairFactory.TwoHeterozygous());
-        assertThat(alleleOccurrences.get(1).getLocusName()).isEqualTo("Blau");
-        assertThat(alleleOccurrences.get(1).getAlleleName()).isEqualTo("Blue");
     }
 
     @Test
@@ -65,19 +59,15 @@ public class ParentsTest {
         Parent p2 = new Parent();
         p2.addAlleleOccurrence(alleleOccurrenceTwo);
 
-        List<AlleleOccurrencePair> alleleOccurrences = p1.balanceWith(p2);
+        List<AllelePairOccurrence> alleleOccurrences = p1.balanceWith(p2);
         assertThat(alleleOccurrences).isNotNull();
         assertThat(alleleOccurrences.size()).isEqualTo(2);
 
         assertThat(alleleOccurrences.get(0).getOccurrencePair())
                 .isEqualTo(OccurrencePairFactory.RecessiveHomozygousAndDominantHomozygous());
-        assertThat(alleleOccurrences.get(0).getLocusName()).isEqualTo("Schwarz");
-        assertThat(alleleOccurrences.get(0).getAlleleName()).isEqualTo("Anery");
 
         assertThat(alleleOccurrences.get(1).getOccurrencePair())
                 .isEqualTo(OccurrencePairFactory.DominantHomozygousAndHeterozygous());
-        assertThat(alleleOccurrences.get(1).getLocusName()).isEqualTo("Blau");
-        assertThat(alleleOccurrences.get(1).getAlleleName()).isEqualTo("Blue");
     }
 
     @Test
@@ -89,19 +79,15 @@ public class ParentsTest {
         p1.addAlleleOccurrence(alleleOccurrenceTwo);
         Parent p2 = new Parent();
 
-        List<AlleleOccurrencePair> alleleOccurrences = p1.balanceWith(p2);
+        List<AllelePairOccurrence> alleleOccurrences = p1.balanceWith(p2);
         assertThat(alleleOccurrences).isNotNull();
         assertThat(alleleOccurrences.size()).isEqualTo(2);
 
         assertThat(alleleOccurrences.get(0).getOccurrencePair())
                 .isEqualTo(OccurrencePairFactory.RecessiveHomozygousAndDominantHomozygous());
-        assertThat(alleleOccurrences.get(0).getLocusName()).isEqualTo("Schwarz");
-        assertThat(alleleOccurrences.get(0).getAlleleName()).isEqualTo("Anery");
 
         assertThat(alleleOccurrences.get(1).getOccurrencePair())
                 .isEqualTo(OccurrencePairFactory.DominantHomozygousAndHeterozygous());
-        assertThat(alleleOccurrences.get(1).getLocusName()).isEqualTo("Blau");
-        assertThat(alleleOccurrences.get(1).getAlleleName()).isEqualTo("Blue");
     }
 
 

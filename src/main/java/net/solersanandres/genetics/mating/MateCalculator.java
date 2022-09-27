@@ -1,12 +1,12 @@
 package net.solersanandres.genetics.mating;
 
 
-import net.solersanandres.genetics.models.occurrence.AlleleOccurrencePair;
+import net.solersanandres.genetics.models.occurrence.AllelePairOccurrence;
 
 import java.util.List;
 
 public interface MateCalculator {
-    MateResults forLocus(AlleleOccurrencePair alleleOccurrencePair);
+    MateResults forLocus(AllelePairOccurrence allelePairOccurrence);
 
-    List<MateResults> forLoci(List<AlleleOccurrencePair> alleleOccurrencePairs);
+    List<MateResults> forLoci(List<AllelePairOccurrence> allelePairOccurrences);
 }
