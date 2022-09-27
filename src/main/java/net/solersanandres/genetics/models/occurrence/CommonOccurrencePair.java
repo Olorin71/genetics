@@ -1,11 +1,11 @@
-package net.solersanandres.genetics.locusoccurrence;
+package net.solersanandres.genetics.models.occurrence;
 
-final class CommonLocusOccurrencePair implements LocusOccurrencePair {
-    private final LocusOccurrence firstOccurrence;
-    private final LocusOccurrence secondOccurrence;
+final class CommonOccurrencePair implements OccurrencePair {
+    private final Occurrence firstOccurrence;
+    private final Occurrence secondOccurrence;
 
-    public CommonLocusOccurrencePair(LocusOccurrence firstOccurrence,
-                                     LocusOccurrence secondOccurrence) {
+    public CommonOccurrencePair(Occurrence firstOccurrence,
+                                Occurrence secondOccurrence) {
         this.firstOccurrence = firstOccurrence;
         this.secondOccurrence = secondOccurrence;
     }
@@ -15,7 +15,7 @@ final class CommonLocusOccurrencePair implements LocusOccurrencePair {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        CommonLocusOccurrencePair locusPair = (CommonLocusOccurrencePair) o;
+        CommonOccurrencePair locusPair = (CommonOccurrencePair) o;
 
         return (firstOccurrence == locusPair.firstOccurrence && secondOccurrence == locusPair.secondOccurrence)
                 || (firstOccurrence == locusPair.secondOccurrence && secondOccurrence == locusPair.firstOccurrence);

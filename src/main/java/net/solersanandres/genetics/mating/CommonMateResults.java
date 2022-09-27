@@ -1,14 +1,14 @@
 package net.solersanandres.genetics.mating;
 
-import net.solersanandres.genetics.locusoccurrence.LocusOccurrence;
+import net.solersanandres.genetics.models.occurrence.Occurrence;
 
 import java.util.Map;
 import java.util.Optional;
 
 class CommonMateResults implements MateResults {
-    private final Map<LocusOccurrence, Double> mateResultsMap;
+    private final Map<Occurrence, Double> mateResultsMap;
 
-    public CommonMateResults(Map<LocusOccurrence, Double> mateResults) {
+    public CommonMateResults(Map<Occurrence, Double> mateResults) {
         this.mateResultsMap = mateResults;
     }
 
@@ -18,7 +18,7 @@ class CommonMateResults implements MateResults {
     }
 
     @Override
-    public Optional<Double> getProbability(LocusOccurrence locusOccurrence) {
-        return Optional.ofNullable(mateResultsMap.get(locusOccurrence));
+    public Optional<Double> getProbability(Occurrence Occurrence) {
+        return Optional.ofNullable(mateResultsMap.get(Occurrence));
     }
 }

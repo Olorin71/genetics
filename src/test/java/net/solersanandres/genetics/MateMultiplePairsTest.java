@@ -1,7 +1,8 @@
 package net.solersanandres.genetics;
 
-import net.solersanandres.genetics.locusoccurrence.LocusOccurrencePair;
-import net.solersanandres.genetics.locusoccurrence.LocusOccurrencePairFactory;
+import net.solersanandres.genetics.models.occurrence.AlleleOccurrencePair;
+import net.solersanandres.genetics.models.occurrence.OccurrencePair;
+import net.solersanandres.genetics.models.occurrence.OccurrencePairFactory;
 import net.solersanandres.genetics.mating.MateCalculator;
 import net.solersanandres.genetics.mating.MateCalculatorFactory;
 import net.solersanandres.genetics.mating.MateResults;
@@ -16,9 +17,9 @@ public class MateMultiplePairsTest {
     @Test
     void TwoPairsGetTwoMateResults() {
         MateCalculator mateCalculator = MateCalculatorFactory.createMendelianInheritanceCalculator();
-        List<LocusOccurrencePair> pairs = new ArrayList<>();
-        pairs.add(LocusOccurrencePairFactory.TwoRecessiveHomozygous());
-        pairs.add(LocusOccurrencePairFactory.RecessiveHomozygousAndHeterozygous());
+        List<AlleleOccurrencePair> pairs = new ArrayList<>();
+        pairs.add(new AlleleOccurrencePair("a", "a",  OccurrencePairFactory.TwoRecessiveHomozygous()));
+        pairs.add(new AlleleOccurrencePair("b", "b",  OccurrencePairFactory.RecessiveHomozygousAndHeterozygous()));
 
         List<MateResults> results = mateCalculator.forLoci(pairs);
 
@@ -28,10 +29,10 @@ public class MateMultiplePairsTest {
     @Test
     void ThreePairsGetThreeMateResults() {
         MateCalculator mateCalculator = MateCalculatorFactory.createMendelianInheritanceCalculator();
-        List<LocusOccurrencePair> pairs = new ArrayList<>();
-        pairs.add(LocusOccurrencePairFactory.TwoRecessiveHomozygous());
-        pairs.add(LocusOccurrencePairFactory.RecessiveHomozygousAndHeterozygous());
-        pairs.add(LocusOccurrencePairFactory.TwoRecessiveHomozygous());
+        List<AlleleOccurrencePair> pairs = new ArrayList<>();
+        pairs.add(new AlleleOccurrencePair("a", "a",  OccurrencePairFactory.TwoRecessiveHomozygous()));
+        pairs.add(new AlleleOccurrencePair("b", "b",  OccurrencePairFactory.RecessiveHomozygousAndHeterozygous()));
+        pairs.add(new AlleleOccurrencePair("x", "h",  OccurrencePairFactory.TwoRecessiveHomozygous()));
 
         List<MateResults> results = mateCalculator.forLoci(pairs);
 

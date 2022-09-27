@@ -1,11 +1,11 @@
 package net.solersanandres.genetics.mating;
 
-import net.solersanandres.genetics.locusoccurrence.LocusOccurrence;
+import net.solersanandres.genetics.models.occurrence.Occurrence;
 
 import java.util.Optional;
 
 public interface MateResults {
     int size();
 
-    Optional<Double> getProbability(LocusOccurrence locusOccurrence);
+    Optional<Double> getProbability(Occurrence Occurrence);
 }

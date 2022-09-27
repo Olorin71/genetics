@@ -1,6 +1,6 @@
-package net.solersanandres.genetics.locusoccurrence;
+package net.solersanandres.genetics.models.occurrence;
 
-public interface LocusOccurrencePair {
+public interface OccurrencePair {
     @Override
     boolean equals(Object o);
 

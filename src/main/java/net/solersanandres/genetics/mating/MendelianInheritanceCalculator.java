@@ -1,8 +1,10 @@
 package net.solersanandres.genetics.mating;
 
-import net.solersanandres.genetics.locusoccurrence.LocusOccurrence;
-import net.solersanandres.genetics.locusoccurrence.LocusOccurrencePair;
-import net.solersanandres.genetics.locusoccurrence.LocusOccurrencePairFactory;
+
+import net.solersanandres.genetics.models.occurrence.AlleleOccurrencePair;
+import net.solersanandres.genetics.models.occurrence.Occurrence;
+import net.solersanandres.genetics.models.occurrence.OccurrencePair;
+import net.solersanandres.genetics.models.occurrence.OccurrencePairFactory;
 
 import java.util.HashMap;
 import java.util.List;
@@ -11,52 +13,52 @@ import java.util.stream.Collectors;
 
 
 class MendelianInheritanceCalculator implements MateCalculator {
-    private static final Map<LocusOccurrencePair, MateResults> matingTableForLocusPairs = new HashMap<>();
+    private static final Map<OccurrencePair, MateResults> matingTableForLocusPairs = new HashMap<>();
 
     public MendelianInheritanceCalculator() {
         matingTableForLocusPairs.put(
-                LocusOccurrencePairFactory.TwoDominantHomozygous(),
-                new CommonMateResults(Map.of(LocusOccurrence.DOMINANT_HOMOZYGOUS, 1.0)));
+                OccurrencePairFactory.TwoDominantHomozygous(),
+                new CommonMateResults(Map.of(Occurrence.DOMINANT_HOMOZYGOUS, 1.0)));
 
         matingTableForLocusPairs.put(
-                LocusOccurrencePairFactory.TwoRecessiveHomozygous(),
-                new CommonMateResults(Map.of(LocusOccurrence.RECESSIVE_HOMOZYGOUS, 1.0)));
+                OccurrencePairFactory.TwoRecessiveHomozygous(),
+                new CommonMateResults(Map.of(Occurrence.RECESSIVE_HOMOZYGOUS, 1.0)));
 
         matingTableForLocusPairs.put(
-                LocusOccurrencePairFactory.DominantHomozygousAndHeterozygous(),
+                OccurrencePairFactory.DominantHomozygousAndHeterozygous(),
                 new CommonMateResults(Map.of(
-                        LocusOccurrence.DOMINANT_HOMOZYGOUS, 0.75,
-                        LocusOccurrence.HETEROZYGOUS, 0.25)
+                        Occurrence.DOMINANT_HOMOZYGOUS, 0.75,
+                        Occurrence.HETEROZYGOUS, 0.25)
                 ));
         matingTableForLocusPairs.put(
-                LocusOccurrencePairFactory.RecessiveHomozygousAndHeterozygous(),
+                OccurrencePairFactory.RecessiveHomozygousAndHeterozygous(),
                 new CommonMateResults(Map.of(
-                        LocusOccurrence.RECESSIVE_HOMOZYGOUS, 0.75,
-                        LocusOccurrence.HETEROZYGOUS, 0.25)
+                        Occurrence.RECESSIVE_HOMOZYGOUS, 0.75,
+                        Occurrence.HETEROZYGOUS, 0.25)
                 ));
         matingTableForLocusPairs.put(
-                LocusOccurrencePairFactory.TwoHeterozygous(),
+                OccurrencePairFactory.TwoHeterozygous(),
                 new CommonMateResults(Map.of(
-                        LocusOccurrence.DOMINANT_HOMOZYGOUS, 0.25,
-                        LocusOccurrence.RECESSIVE_HOMOZYGOUS, 0.25,
-                        LocusOccurrence.HETEROZYGOUS, 0.5)
+                        Occurrence.DOMINANT_HOMOZYGOUS, 0.25,
+                        Occurrence.RECESSIVE_HOMOZYGOUS, 0.25,
+                        Occurrence.HETEROZYGOUS, 0.5)
                 ));
 
         matingTableForLocusPairs.put(
-                LocusOccurrencePairFactory.RecessiveHomozygousAndDominantHomozygous(),
-                new CommonMateResults(Map.of(LocusOccurrence.HETEROZYGOUS, 1.0)));
+                OccurrencePairFactory.RecessiveHomozygousAndDominantHomozygous(),
+                new CommonMateResults(Map.of(Occurrence.HETEROZYGOUS, 1.0)));
 
     }
 
     @Override
-    public MateResults forLocus(LocusOccurrencePair locusOccurrencePair) {
-        return matingTableForLocusPairs.get(locusOccurrencePair);
+    public MateResults forLocus(AlleleOccurrencePair alleleOccurrencePair) {
+        return matingTableForLocusPairs.get(alleleOccurrencePair.getOccurrencePair());
     }
 
     @Override
-    public List<MateResults> forLoci(List<LocusOccurrencePair> locusOccurrencePairs) {
-        return locusOccurrencePairs.parallelStream()
-                .map(matingTableForLocusPairs::get)
+    public List<MateResults> forLoci(List<AlleleOccurrencePair> alleleOccurrencePairs) {
+        return alleleOccurrencePairs.parallelStream()
+                .map(key -> matingTableForLocusPairs.get(key.getOccurrencePair()))
                 .collect(Collectors.toList());
     }
 }
